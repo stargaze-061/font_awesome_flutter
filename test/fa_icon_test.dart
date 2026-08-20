@@ -7,6 +7,14 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
+  test('preserves the glyph data for generated icons', () {
+    const IconData icon = FontAwesomeIcons.solidAlbumCollection;
+
+    expect(icon.codePoint, 0xf8a0);
+    expect(icon.fontFamily, 'FontAwesomeSolid');
+    expect(icon.fontPackage, 'font_awesome_flutter');
+  });
+
   testWidgets('Can set opacity for an Icon', (WidgetTester tester) async {
     await tester.pumpWidget(
       const Directionality(
@@ -21,7 +29,10 @@ void main() {
       ),
     );
     final RichText text = tester.widget(find.byType(RichText));
-    expect(text.text.style!.color, const Color(0xFF666666).withOpacity(0.5));
+    expect(
+      text.text.style!.color,
+      const Color(0xFF666666).withValues(alpha: 0.5),
+    );
   });
 
   testWidgets('Icon sizing - no theme, default size',

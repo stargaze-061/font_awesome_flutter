@@ -1,3 +1,8 @@
+## 11.0.0
+* Make generated Font Awesome glyphs direct `IconData` values so they remain
+  compatible with Flutter's final `IconData` while preserving the existing Pro
+  glyph code points and font families.
+
 ## 10.7.0
 * Upgrade to Font Awesome 6.5.1
 

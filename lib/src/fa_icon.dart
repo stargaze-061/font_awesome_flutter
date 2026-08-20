@@ -136,7 +136,7 @@ class FaIcon extends StatelessWidget {
     final double iconOpacity = iconTheme.opacity ?? 1.0;
     Color iconColor = color ?? iconTheme.color!;
     if (iconOpacity != 1.0) {
-      iconColor = iconColor.withOpacity(iconColor.opacity * iconOpacity);
+      iconColor = iconColor.withValues(alpha: iconColor.a * iconOpacity);
     }
 
     Widget iconWidget = RichText(
@@ -161,7 +161,7 @@ class FaIcon extends StatelessWidget {
       switch (textDirection) {
         case TextDirection.rtl:
           iconWidget = Transform(
-            transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
+            transform: Matrix4.diagonal3Values(-1.0, 1.0, 1.0),
             alignment: Alignment.center,
             transformHitTests: false,
             child: iconWidget,
@@ -184,7 +184,13 @@ class FaIcon extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-        IconDataProperty('icon', icon, ifNull: '<empty>', showName: false));
+      IconDataProperty(
+        'icon',
+        icon,
+        ifNull: '<empty>',
+        showName: false,
+      ),
+    );
     properties.add(DoubleProperty('size', size, defaultValue: null));
     properties.add(ColorProperty('color', color, defaultValue: null));
     properties
