@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import 'icon_data.dart';
+
 /// Creates an Icon Widget that works for non-material Icons, such as the
 /// Font Awesome Icons.
 ///
@@ -34,7 +36,7 @@ class FaIcon extends StatelessWidget {
   ///
   /// The icon can be null, in which case the widget will render as an empty
   /// space of the specified [size].
-  final IconData? icon;
+  final FaIconData? icon;
 
   /// The size of the icon in logical pixels.
   ///
@@ -136,7 +138,7 @@ class FaIcon extends StatelessWidget {
     final double iconOpacity = iconTheme.opacity ?? 1.0;
     Color iconColor = color ?? iconTheme.color!;
     if (iconOpacity != 1.0) {
-      iconColor = iconColor.withOpacity(iconColor.opacity * iconOpacity);
+      iconColor = iconColor.withValues(alpha: iconColor.a * iconOpacity);
     }
 
     Widget iconWidget = RichText(
@@ -145,23 +147,23 @@ class FaIcon extends StatelessWidget {
       textDirection: textDirection,
       // Since we already fetched it for the assert...
       text: TextSpan(
-        text: String.fromCharCode(icon!.codePoint),
+        text: String.fromCharCode(icon!.data.codePoint),
         style: TextStyle(
           inherit: false,
           color: iconColor,
           fontSize: iconSize,
-          fontFamily: icon!.fontFamily,
-          package: icon!.fontPackage,
+          fontFamily: icon!.data.fontFamily,
+          package: icon!.data.fontPackage,
           shadows: iconShadows,
         ),
       ),
     );
 
-    if (icon!.matchTextDirection) {
+    if (icon!.data.matchTextDirection) {
       switch (textDirection) {
         case TextDirection.rtl:
           iconWidget = Transform(
-            transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
+            transform: Matrix4.diagonal3Values(-1.0, 1.0, 1.0),
             alignment: Alignment.center,
             transformHitTests: false,
             child: iconWidget,
@@ -184,7 +186,13 @@ class FaIcon extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-        IconDataProperty('icon', icon, ifNull: '<empty>', showName: false));
+      IconDataProperty(
+        'icon',
+        icon?.data,
+        ifNull: '<empty>',
+        showName: false,
+      ),
+    );
     properties.add(DoubleProperty('size', size, defaultValue: null));
     properties.add(ColorProperty('color', color, defaultValue: null));
     properties

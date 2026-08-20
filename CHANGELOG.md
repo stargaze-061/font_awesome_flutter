@@ -1,3 +1,9 @@
+## 11.0.0
+* BREAKING: make generated Font Awesome glyphs `FaIconData` wrappers so they
+  remain compatible with Flutter's final `IconData`; use `.data` with Flutter's
+  standard `Icon` widget.
+* Preserve the existing Font Awesome Pro glyph and font families.
+
 ## 10.7.0
 * Upgrade to Font Awesome 6.5.1
 
