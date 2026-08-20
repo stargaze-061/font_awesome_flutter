@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-import 'icon_data.dart';
-
 /// Creates an Icon Widget that works for non-material Icons, such as the
 /// Font Awesome Icons.
 ///
@@ -36,7 +34,7 @@ class FaIcon extends StatelessWidget {
   ///
   /// The icon can be null, in which case the widget will render as an empty
   /// space of the specified [size].
-  final FaIconData? icon;
+  final IconData? icon;
 
   /// The size of the icon in logical pixels.
   ///
@@ -147,19 +145,19 @@ class FaIcon extends StatelessWidget {
       textDirection: textDirection,
       // Since we already fetched it for the assert...
       text: TextSpan(
-        text: String.fromCharCode(icon!.data.codePoint),
+        text: String.fromCharCode(icon!.codePoint),
         style: TextStyle(
           inherit: false,
           color: iconColor,
           fontSize: iconSize,
-          fontFamily: icon!.data.fontFamily,
-          package: icon!.data.fontPackage,
+          fontFamily: icon!.fontFamily,
+          package: icon!.fontPackage,
           shadows: iconShadows,
         ),
       ),
     );
 
-    if (icon!.data.matchTextDirection) {
+    if (icon!.matchTextDirection) {
       switch (textDirection) {
         case TextDirection.rtl:
           iconWidget = Transform(
@@ -188,7 +186,7 @@ class FaIcon extends StatelessWidget {
     properties.add(
       IconDataProperty(
         'icon',
-        icon?.data,
+        icon,
         ifNull: '<empty>',
         showName: false,
       ),

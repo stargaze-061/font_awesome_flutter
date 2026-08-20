@@ -8,11 +8,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   test('preserves the glyph data for generated icons', () {
-    const FaIconData icon = FontAwesomeIcons.solidAlbumCollection;
+    const IconData icon = FontAwesomeIcons.solidAlbumCollection;
 
-    expect(icon.data.codePoint, 0xf8a0);
-    expect(icon.data.fontFamily, 'FontAwesomeSolid');
-    expect(icon.data.fontPackage, 'font_awesome_flutter');
+    expect(icon.codePoint, 0xf8a0);
+    expect(icon.fontFamily, 'FontAwesomeSolid');
+    expect(icon.fontPackage, 'font_awesome_flutter');
   });
 
   testWidgets('Can set opacity for an Icon', (WidgetTester tester) async {

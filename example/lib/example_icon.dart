@@ -1,7 +1,7 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/widgets.dart';
 
 class ExampleIcon implements Comparable {
-  final FaIconData iconData;
+  final IconData iconData;
   final String title;
 
   ExampleIcon(this.iconData, this.title);
